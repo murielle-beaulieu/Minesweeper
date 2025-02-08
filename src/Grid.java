@@ -21,6 +21,7 @@ public class Grid {
       System.out.println( i + "| [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]");
       i++;
     }
+
     return null;
   }
 }
