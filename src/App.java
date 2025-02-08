@@ -29,20 +29,42 @@ public class App {
         int b = 10; // columns
         // int n = (Integer)null; // having a third array empty to display?
 
-        int [][] gridArr = new int[a][b];
+        int [][] gridCoord = new int[a][b];
 
         for (int i = 0; i < b; i++) {
           for (int j = 0; j < b; j++) {
-            gridArr[i][j] = j+1;
+            gridCoord[i][j] = j+1;
             // this gives us a large array of 10 arrays, each smaller array listing 1 throught 10
           }
         }
 
         // print array of arrays
-        System.out.println(Arrays.deepToString(gridArr));
+        System.out.println(Arrays.deepToString(gridCoord));
 
         // access value at position within the array of arrays
-        System.out.println(gridArr[2][9]);
+        System.out.println(gridCoord[2][9]);
+
+
+        /* generate an empty display array where we insert */
+
+        int x = 10; // rows
+        int y = 10; // columns
+        // int n = (Integer)null; // having a third array empty to display?
+
+        String [][] gridString = new String[x][y];
+
+        for (int i = 0; i < x; i++) {
+          for (int j = 0; j < x; j++) {
+            gridString[i][j] = "[ ]";
+            // this gives us a large array of 10 arrays, each smaller array listing 1 throught 10
+          }
+        }
+
+        // print array of arrays
+        gridString[1][1] = "[x]";
+        System.out.println(Arrays.deepToString(gridString));
+
+
 
 
         /* generate random mine coordinates */
