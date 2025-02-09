@@ -1,33 +1,4 @@
-## Minesweeper, step by step
-
-        // set an array for the grid
-        // set an array for the mines coordinates
-        // generate random coordinates for the mines?
-
-        // request in the scanner a key value pair of coordinates
-        // compare the coordinates entered to the mine coordinates
-
-        // if it's a match, game over
-        // if it's not, continue
-
-        // tiles should display the numbers of mines around ????
-
-        // the game should continue until a mine is selected
-        //    or the player successfully avoids all the mine
-        // the grid regenerates every turn
-
-//  __  __
-// |  \/  (_)
-// | \  / |_ _ __   ___  _____      _____  ___ _ __   ___ _ __
-// | |\/| | | '_ \ / _ \/ __\ \ /\ / / _ \/ _ \ '_ \ / _ \ '__|
-// | |  | | | | | |  __/\__ \\ V  V /  __/  __/ |_) |  __/ |
-// |_|  |_|_|_| |_|\___||___/ \_/\_/ \___|\___| .__/ \___|_|
-//                                            | |
-//                                            |_|
-
-
-
-### **MVP**
+# **MVP**
 
 Recreate a simplified version of the game Minesweeper to be played in the java console
 

@@ -8,23 +8,24 @@ public class Mine {
 // generate random set of coordinates of column/row
 
   public Mine() {
-      System.out.println("Here are the mines coordinates: ");
+      /* generate random mine coordinates */
 
-          ArrayList<String> coordinatesArr = new ArrayList<>();
+    //   System.out.println("Here are the mines coordinates: ");
 
-          int i = 0;
+    //   ArrayList<String> coordinatesArr = new ArrayList<>();
 
-          while (i < 10) {
-          Integer randomColumn = (int)(Math.random() * 10);
-          Integer randomRow = (int)(Math.random() * 10);
+    //   int i = 0;
+    //   while (i < 10) {
+    //   Integer randomColumn = (int)(Math.random() * 10);
+    //   Integer randomRow = (int)(Math.random() * 10);
 
-          Integer[] coord = {randomColumn, randomRow};
+    //   Integer[] coord = {randomColumn, randomRow};
+    //   coordinatesArr.add(coord[0] + "," + coord[1]);
+    // /* loops through the nested coordinates and replace the coords where theres a mine */
+    //   gridCoord[coord[0]][coord[1]] = "*";
+    //   i++;
+    // }
 
-          coordinatesArr.add(coord[0] + "," + coord[1]);
-          i++;
-        }
-
-        System.out.println(coordinatesArr);
   }
 
 }
