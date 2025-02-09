@@ -2,50 +2,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-//  __  __
-// |  \/  (_)
-// | \  / |_ _ __   ___  _____      _____  ___ _ __   ___ _ __
-// | |\/| | | '_ \ / _ \/ __\ \ /\ / / _ \/ _ \ '_ \ / _ \ '__|
-// | |  | | | | | |  __/\__ \\ V  V /  __/  __/ |_) |  __/ |
-// |_|  |_|_|_| |_|\___||___/ \_/\_/ \___|\___| .__/ \___|_|
-//                                            | |
-//                                            |_|
-
 
 public class App {
     public static void main(String[] args) throws Exception {
         // System.out.println("Welcome to Minesweeper!");
-
         Scanner scan = new Scanner(System.in);
 
         // // System.out.println("Enter a set of coordinates for the tile you want to display: ");
         // // String coordinatesPlayed = scan.next();
-        // // System.out.println("You've selected " + coordinatesPlayed);
-
 
         /* generate grid coordinates */
 
-        int a = 10; // rows
-        int b = 10; // columns
+        Integer a = 10; // rows
+        Integer b = 10; // columns
         // int n = (Integer)null; // having a third array empty to display?
 
-        int [][] gridCoord = new int[a][b];
+        String[][] gridCoord = new String[a][b];
 
         for (int i = 0; i < b; i++) {
           for (int j = 0; j < b; j++) {
-            gridCoord[i][j] = j+1;
+            gridCoord[i][j] = Integer.toString(j + 1);
             // this gives us a large array of 10 arrays, each smaller array listing 1 throught 10
           }
         }
 
         // print array of arrays
-        System.out.println(Arrays.deepToString(gridCoord));
+        // System.out.println(Arrays.deepToString(gridCoord));
 
-        // access value at position within the array of arrays
-        System.out.println(gridCoord[2][9]);
+        // // access value at position within the array of arrays
+        // System.out.println(gridCoord[2][9]);
 
 
-        /* generate an empty display array where we insert */
+        // /* generate an empty display array where we show clicked tiles */
 
         int x = 10; // rows
         int y = 10; // columns
@@ -55,58 +43,64 @@ public class App {
 
         for (int i = 0; i < x; i++) {
           for (int j = 0; j < x; j++) {
-            gridString[i][j] = "[ ]";
+            gridString[i][j] = "[  ]";
             // this gives us a large array of 10 arrays, each smaller array listing 1 throught 10
           }
         }
 
-        // print array of arrays
-        gridString[1][1] = "[x]";
+        // // print array of arrays
         System.out.println(Arrays.deepToString(gridString));
-
-
 
 
         /* generate random mine coordinates */
 
-        //  System.out.println("Here are the mines coordinates: ");
+         System.out.println("Here are the mines coordinates: ");
 
-        //   ArrayList<String> coordinatesArr = new ArrayList<>();
+          ArrayList<String> coordinatesArr = new ArrayList<>();
 
-        //   int i = 0;
+          int i = 0;
+          while (i < 10) {
+          Integer randomColumn = (int)(Math.random() * 10);
+          Integer randomRow = (int)(Math.random() * 10);
 
-        //   while (i < 10) {
-        //   Integer randomColumn = (int)(Math.random() * 10);
-        //   Integer randomRow = (int)(Math.random() * 10);
+          Integer[] coord = {randomColumn, randomRow};
+          coordinatesArr.add(coord[0] + "," + coord[1]);
+        /* loops through the nested coordinates and replace the coords where theres a mine */
+          gridCoord[coord[0]][coord[1]] = "*";
+          i++;
+        }
 
-        //   Integer[] coord = {randomColumn, randomRow};
+        System.out.println(coordinatesArr);
+        System.out.println(Arrays.deepToString(gridCoord));
 
-        //   coordinatesArr.add(coord[0] + "," + coord[1]);
-        //   i++;
-        // }
+        // /* check user input and mine coordinates */
 
-        // System.out.println(coordinatesArr);
-
-        /* check user input and mine coordinates */
-
-        System.out.println("Enter something: ");
+        System.out.println("Enter a set of coordinates row,column : ");
 
         String userInput = scan.next();
+        Integer inputRow = Character.getNumericValue(userInput.charAt(0));
+        Integer inputColumn = Character.getNumericValue(userInput.charAt(2));
 
-        // Boolean gameOver = false;
-        // System.out.println(gameOver);
+        Boolean gameOver = false;
+        System.out.println(gameOver);
 
-        // while(gameOver.equals(false)) {
+        while(gameOver.equals(false)) {
+          System.out.println(Arrays.deepToString(gridCoord));
+          gridString[inputRow.intValue()][inputColumn.intValue()] = "[no]";
+          System.out.println(Arrays.deepToString(gridString));
 
+          System.out.println("Enter next set of coordinates: ");
+          // reassign the values of the scanner and of the selected row/col
 
-        //   System.out.println("Enter something: ");
-        //   userInput = scan.next();
+          userInput = scan.next();
+          inputRow = Character.getNumericValue(userInput.charAt(0));
+          inputColumn = Character.getNumericValue(userInput.charAt(2));
 
-        //   if (coordinatesArr.contains(userInput)) {
-        //       System.out.println("Boom!! a mine exploded");
-        //       gameOver = true;
-        //     }
-        //   }
+          if (coordinatesArr.contains(userInput)) {
+              System.out.println("Boom!! a mine exploded");
+              gameOver = true;
+            }
+          }
 
         scan.close();
       }
@@ -123,13 +117,8 @@ public class App {
       // that way accessing [1][8] is looking at the first row at column 8th
       // this returns 7 (colums start from 0)
 
-
-    // if we could have a nested array [[[][0,0]], [][0,1], [][0,2], [][0,3]]
-    // the 1st nested array = tile
-    // the 2nd nested array = tile coordinates
-
-    // and then we compare the 2nd nested array to the userInput
+    // and then we compare the nested array to the userInput
     // if there's mines in the surroundings, we change the value of the tile to the amount of mines
 
-    // to check how many mines, we could loop over the coordinates[a,b] by 1 for a and by 1 for b
+    // to check how many mines: we could loop over the coordinates[a,b] by 1 for a and by 1 for b
     // when they no surrounding arrays (like on the edges?)
