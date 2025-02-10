@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Grid {
 
@@ -11,42 +10,39 @@ public class Grid {
 
       public static void createGridArray() {
 
+        /* generate the a grid of coords */
         for (int i = 0; i < a; i++) {
           for (int j = 0; j < a; j++) {
             gridCoord[i][j] = Integer.toString(j + 1);
               }
             }
 
-              // /* generate an empty display array where we show clicked tiles */
-
+        /* generate an empty display array where we show clicked tiles */
           for (int i = 0; i < b; i++) {
             for (int j = 0; j < b; j++) {
-              gridString[i][j] = "[  ]";
+              gridString[i][j] = "[ ]";
+              System.out.print(gridString[i][j]);
               }
+              System.out.println();
             }
-          System.out.println("Here's your empty array:");
-          System.out.println(Arrays.deepToString(gridString));
         }
 
+      public static void insertMines() {
+        int i = 0;
 
-            public static void insertMines() {
-              int i = 0;
+          while (i < 10) {
+          Integer randomColumn = (int)((Math.random() * 10)-1);
+          Integer randomRow = (int)((Math.random() * 10)-1);
 
-                while (i < 10) {
-                  Integer randomColumn = (int)(Math.random() * 10);
-                  Integer randomRow = (int)(Math.random() * 10);
-
-                  Integer[] coord = {randomColumn, randomRow};
-                  mineCoordinatesArr.add(coord[0] + "," + coord[1]);
-                  /* loops through the nested coordinates and replace the coords where theres a mine [*]  */
-                gridCoord[coord[0]][coord[1]] = "*";
-              i++;
-            }
-
-            System.out.println("Here are the mines coordinates: ");
-            System.out.println(Arrays.deepToString(gridCoord));
-
+          Integer[] coord = {randomColumn, randomRow};
+          mineCoordinatesArr.add(coord[0] + "," + coord[1]);
+            /* loops through the nested coordinates and replace the coords where theres a mine [*]  */
+            gridCoord[coord[0]][coord[1]] = "*";
+            i++;
           }
+        /* for game testing - mines coordinates: */
+        // System.out.println(Arrays.deepToString(gridCoord));
+      }
 
         public static String[][] getGridCoordinates() {
             return gridCoord;
@@ -54,14 +50,9 @@ public class Grid {
 
         public static String[][] getEmptyGrid() {
           return gridString;
-      }
-
-        public static void printGrid() {
-          System.out.println(Arrays.deepToString(gridString));
         }
 
         public static ArrayList<String> getMineCoordinates () {
-          System.out.println(mineCoordinatesArr);
           return mineCoordinatesArr;
         }
 
