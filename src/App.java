@@ -37,12 +37,11 @@ public class App {
         // // print array of arrays
         System.out.println(Arrays.deepToString(gridString));
 
-
         /* generate random mine coordinates */
 
          System.out.println("Here are the mines coordinates: ");
 
-          ArrayList<String> coordinatesArr = new ArrayList<>();
+          ArrayList<String> mineCoordinatesArr = new ArrayList<>();
 
           int i = 0;
           while (i < 10) {
@@ -50,36 +49,96 @@ public class App {
           Integer randomRow = (int)(Math.random() * 10);
 
           Integer[] coord = {randomColumn, randomRow};
-          coordinatesArr.add(coord[0] + "," + coord[1]);
+          mineCoordinatesArr.add(coord[0] + "," + coord[1]);
         /* loops through the nested coordinates and replace the coords where theres a mine [*]  */
           gridCoord[coord[0]][coord[1]] = "*";
           i++;
         }
 
-        System.out.println(coordinatesArr);
+        System.out.println(mineCoordinatesArr);
         System.out.println(Arrays.deepToString(gridCoord));
 
         // /* check user input and mine coordinates */
 
         System.out.println("Enter a set of coordinates row,column : ");
-
         String userInput = scan.next();
-        // String regex = "^.,.$";
-        // Boolean validInput = false;
 
-        // if (userInput.matches(regex)) {
-        //   System.out.println("success");
-        // }
-
+        Boolean gameOver = false;
         Integer inputRow = Character.getNumericValue(userInput.charAt(0));
         Integer inputColumn = Character.getNumericValue(userInput.charAt(2));
 
-        Boolean gameOver = false;
+
+        if (mineCoordinatesArr.contains(userInput)) {
+          System.out.println("Boom!! a mine exploded");
+          gameOver = true;
+        }
 
         while(gameOver.equals(false)) {
 
           System.out.println(Arrays.deepToString(gridCoord));
-          gridString[inputRow.intValue()][inputColumn.intValue()] = "[no]";
+
+        // keep track of the tiles by adding one each time there's a match
+        Integer surroudingMines = 0;
+
+        // position to give to check, we start at the one before (-1), then at the same position (0), then at the one after (+1)
+        // c for check
+        Integer c = -1;
+        Integer d = -1;
+        Integer e = -1;
+
+        Integer checkAboveRow = Character.getNumericValue(userInput.charAt(0));
+        Integer checkAboveColumn = Character.getNumericValue(userInput.charAt(2));
+        while (c < 2) {
+          checkAboveRow = Character.getNumericValue(userInput.charAt(0))-1;
+          checkAboveColumn = Character.getNumericValue(userInput.charAt(2))+c;
+        // check row below
+          if (mineCoordinatesArr.contains(checkAboveRow + "," + checkAboveColumn)) {
+            surroudingMines++;
+            c++;
+            System.out.println("Surrounding mines" + surroudingMines);
+            System.out.println("Surrounding mines " + checkAboveRow + "," + checkAboveColumn);
+          }
+          c++;
+          System.out.println("Surrounding mines" + surroudingMines);
+          System.out.println("Surrounding mines " + checkAboveRow + "," + checkAboveColumn);
+        }
+
+        // //The same row, add 0 to row, cycle through columns
+        Integer checkSameRow = Character.getNumericValue(userInput.charAt(0));
+        Integer checkSameColumn = Character.getNumericValue(userInput.charAt(2));
+
+        while (d < 2) {
+          checkSameRow = Character.getNumericValue(userInput.charAt(0));
+          checkSameColumn = Character.getNumericValue(userInput.charAt(2)+d);
+          if (mineCoordinatesArr.contains(checkSameRow + "," + checkSameColumn)) {
+            surroudingMines++;
+            d++;
+          }
+          d++;
+          System.out.println("Surrounding mines" + surroudingMines);
+          System.out.println("Surrounding mines " + checkSameRow+","+checkSameColumn);
+
+        }
+
+        // //The row below, add 1 to row, cycle through columns
+        Integer checkBelowRow = Character.getNumericValue(userInput.charAt(0));
+        Integer checkBelowColumn = Character.getNumericValue(userInput.charAt(2));
+
+        while (e < 2) {
+          checkBelowRow = Character.getNumericValue(userInput.charAt(0))+1;
+          checkBelowColumn = Character.getNumericValue(userInput.charAt(2)+ e);
+        // check row below
+          if (mineCoordinatesArr.contains(checkBelowRow + "," + checkBelowColumn)) {
+            surroudingMines++;
+            e++;
+          }
+          e++;
+          System.out.println("Surrounding mines" + surroudingMines);
+          System.out.println("Surrounding mines " + checkBelowRow+","+checkBelowColumn);
+        }
+
+
+          gridString[inputRow.intValue()][inputColumn.intValue()] = "["+ surroudingMines +"]";
           System.out.println(Arrays.deepToString(gridString));
 
           System.out.println("Enter next set of coordinates: ");
@@ -88,12 +147,11 @@ public class App {
           inputRow = Character.getNumericValue(userInput.charAt(0));
           inputColumn = Character.getNumericValue(userInput.charAt(2));
 
-          if (coordinatesArr.contains(userInput)) {
+          if (mineCoordinatesArr.contains(userInput)) {
               System.out.println("Boom!! a mine exploded");
               gameOver = true;
             }
         }
-
 
         scan.close();
       }
